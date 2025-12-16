@@ -15,7 +15,7 @@ Pick a facility:
 > ...
 
 # If available
-Do you want to book Name1? (Y/N)
+Do you want to book <...>? (Y/N)
 > ...
 
 Enter number of people:
