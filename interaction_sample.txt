@@ -1,9 +1,10 @@
-Welcome to <...>
+Welcome to <...>!
+
 Enter your ID:
-> ...
+> 3124
 
 Enter your password:
-> ...
+> 345
 
 Booking facilities:
 1. Name1   Available
@@ -12,23 +13,23 @@ Booking facilities:
 4. Name4   Booked
 
 Pick a facility:
-> ...
+> 3
 
 # If available
 Do you want to book <...>? (Y/N)
-> ...
+> Y
 
 Enter number of people:
-> ...
+> 10
+
+Enter duration (in days):
+> 10
 
 Enter date:
-> ...
+> 12/12/2025
 
-Enter duration:
-> ...
-
-Enter you name:
-> ...
+Enter your name:
+> Maksim
 
 You have succ. booked this facility!
 
@@ -40,13 +41,13 @@ This facility is not available
 *go back*
 
 # If booked
-Number of people: <...>
-Duration: <...>
-Date: <...>
-Name: <...>
+Number of people: 10
+Duration: 10 days
+Date: 12/12/2025
+Name: Maksim
 
 Do you want to cancel? (Y/N)
-> ...
+> Y
 
 Your booking is canceled!
 
