@@ -1,0 +1,54 @@
+Welcome to <...>
+Enter your ID:
+> ...
+
+Enter your password:
+> ...
+
+Booking facilities:
+1. Name1   Available
+2. Name2   Unavalable
+3. Name3   Available
+4. Name4   Booked
+
+Pick a facility:
+> ...
+
+# If available
+Do you want to book Name1? (Y/N)
+> ...
+
+Enter number of people:
+> ...
+
+Enter date:
+> ...
+
+Enter duration:
+> ...
+
+Enter you name:
+> ...
+
+You have succ. booked this facility!
+
+*go back*
+
+# If unavalable
+This facility is not available
+
+*go back*
+
+# If booked
+Number of people: <...>
+Duration: <...>
+Date: <...>
+Name: <...>
+
+Do you want to cancel? (Y/N)
+> ...
+
+Your booking is canceled!
+
+*go back*
+
