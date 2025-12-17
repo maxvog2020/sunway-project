@@ -1,9 +1,8 @@
-# TODO: load users from database/users.txt
-
+########################################################
 class Facility:
     def __init__(self, name, booker_id):
         self.name = name
-        self.booker_id = booker_id
+        self.booker_id = booker_id  # 0 - not booked, other - booker_id
 
 class User:
     def __init__(self, id, password, name, status):
@@ -20,29 +19,47 @@ class Booking:
         self.date = date
         self.name = name
 
+########################################################
+def load_users():
+    users = []
+    with open("database/users.txt", "r") as file:
+        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
+        for line in lines:
+            fields = map(str.strip, line.split(","))
+            id, password, name, status = fields
+            users.append(User(id, password, name, status))
+    return users
 
-#####################
-# TODO: load everything from database/users.txt, database/bookings.txt, database/facilities.txt
-users = [
-    User("345", "admin123", "Maksim Volgin", "teacher"),
-    User("258", "qwerty45", "Andrew Low Zhi Lun", "student"),
-    User("912", "mypaswrd", "Neo Yu Jay", "student"),
-]
+def load_bookings():
+    bookings = []
+    with open("database/bookings.txt", "r") as file:
+        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
+        for line in lines:
+            fields = map(str.strip, line.split(","))
+            booker_id, number_of_people, duration, date, name = fields
+            bookings.append(Booking(booker_id, number_of_people, duration, date, name))
+    return bookings
 
-facilities = [
-    Facility("Name1", "345"),
-    Facility("Name2", "0"),
-    Facility("Name3", "0"),
-    Facility("Name4", "0"),
-]
-
-bookings = [
-    Booking("345", 10, 10, "12/12/25", "Maksim"),
-]
-#####################
+def load_facilities():
+    facilities = []
+    with open("database/facilities.txt", "r") as file:
+        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
+        for line in lines:
+            fields = map(str.strip, line.split(","))
+            name, booker_id = fields
+            facilities.append(Facility(name, booker_id))
+    return facilities
 
 def verify_user(id, password):
-    return True  # TODO: verify
+    for user in users:
+        if user.id == id and user.password == password:
+            return True
+    return False
+
+########################################################
+users = load_users()
+bookings = load_bookings()
+facilities = load_facilities()
 
 print("Welcome to <...>!\n")
 
@@ -52,22 +69,19 @@ password = input("Enter your password: ")
 if not verify_user(id, password):
     exit("Invalid ID or password")
 
-name = "Temp name"
-print(f"Welcome, {name}!")
-
 while True:
     print("\nBooking facilities:")
     print("1. Name1   Available")  # replace with actual facilities
     print("2. Name2   Unavalable")  # replace with actual facilities
     print("3. Name3   Available")  # replace with actual facilities
     print("4. Name4   Booked")  # replace with actual facilities
-    print("\n5. Exit")
+    print("\n5. Exit\n")
 
     exit_code = 5
 
     choice = int(input("Pick a facility (or exit): "))
     if choice == exit_code:
-        print("Bye!")
+        print("\nBye!")
         exit(0)
     
-
+    
