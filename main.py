@@ -1,5 +1,44 @@
 # TODO: load users from database/users.txt
 
+class Facility:
+    def __init__(self, name, available):
+        self.name = name
+        self.available = available
+
+class User:
+    def __init__(self, id, password, name, status):
+        self.id = id
+        self.password = password
+        self.name = name
+        self.status = status
+
+class Booking:
+    def __init__(self, user, facility, date, duration, people):
+        self.user = user
+        self.facility = facility
+        self.date = date
+        self.duration = duration
+        self.people = people
+
+#####################
+# TODO: load everything from database/users.txt, database/bookings.txt, database/facilities.txt
+
+users = [
+    User(345, "admin123", "Maksim Volgin", "teacher"),
+    User(258, "qwerty45", "Andrew Low Zhi Lun", "student"),
+    User(912, "mypaswrd", "Neo Yu Jay", "student"),
+]
+
+facilities = [
+    Facility("Name1", "booked"),
+    Facility("Name2", "unavailable"),
+    Facility("Name3", "available"),
+    Facility("Name4", "booked"),
+]
+
+bookings = []
+#####################
+
 def verify_user(id, password):
     return True  # TODO: verify
 
@@ -29,5 +68,4 @@ while True:
         print("Bye!")
         exit(0)
     
-    
-   
+
