@@ -71,10 +71,13 @@ if not verify_user(id, password):
 
 while True:
     print("\nBooking facilities:")
-    print("1. Name1   Available")  # replace with actual facilities
-    print("2. Name2   Unavalable")  # replace with actual facilities
-    print("3. Name3   Available")  # replace with actual facilities
-    print("4. Name4   Booked")  # replace with actual facilities
+    for facility in facilities:
+        if facility.booker_id == 0:
+            print(f"{facility.name:<20} Available")
+        elif facility.booker_id == id:
+            print(f"{facility.name:<20} Booked")
+        else:
+            print(f"{facility.name:<20} Unavailable")
     print("\n5. Exit\n")
 
     exit_code = 5
@@ -83,5 +86,4 @@ while True:
     if choice == exit_code:
         print("\nBye!")
         exit(0)
-    
     
