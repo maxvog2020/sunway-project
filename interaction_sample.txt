@@ -11,6 +11,7 @@ Booking facilities:
 2. Name2   Unavalable
 3. Name3   Available
 4. Name4   Booked
+5. Exit
 
 Pick a facility:
 > 3
