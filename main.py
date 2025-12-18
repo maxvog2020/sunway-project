@@ -1,18 +1,24 @@
 ########################################################
+RED = '\033[91m'
+BLUE = '\033[94m'
+GREEN = '\033[92m'
+END_COLOR = '\033[0m'
+
+########################################################
 class Facility:
-    def __init__(self, name, booker_id):
+    def __init__(self, name: str, booker_id: int):
         self.name = name
         self.booker_id = booker_id  # 0 - not booked, other - booker_id
 
 class User:
-    def __init__(self, id, password, name, status):
+    def __init__(self, id: int, password: str, name: str, status: str):
         self.id = id
         self.password = password
         self.name = name
         self.status = status
 
 class Booking:
-    def __init__(self, booker_id, number_of_people, duration, date, name):
+    def __init__(self, booker_id: int, number_of_people: int, duration: int, date: str, name: str):
         self.booker_id = booker_id
         self.number_of_people = number_of_people
         self.duration = duration
@@ -20,37 +26,40 @@ class Booking:
         self.name = name
 
 ########################################################
-def load_users():
+def load_users() -> list[User]:
     users = []
     with open("database/users.txt", "r") as file:
         lines = filter(lambda x: x != "", file.read().splitlines()[1:])
         for line in lines:
             fields = map(str.strip, line.split(","))
             id, password, name, status = fields
-            users.append(User(id, password, name, status))
+            user = User(int(id), password, name, status)
+            users.append(user)
     return users
 
-def load_bookings():
+def load_bookings() -> list[Booking]:
     bookings = []
     with open("database/bookings.txt", "r") as file:
         lines = filter(lambda x: x != "", file.read().splitlines()[1:])
         for line in lines:
             fields = map(str.strip, line.split(","))
             booker_id, number_of_people, duration, date, name = fields
-            bookings.append(Booking(booker_id, number_of_people, duration, date, name))
+            booking = Booking(int(booker_id), int(number_of_people), int(duration), date, name)
+            bookings.append(booking)
     return bookings
 
-def load_facilities():
+def load_facilities() -> list[Facility]:
     facilities = []
     with open("database/facilities.txt", "r") as file:
         lines = filter(lambda x: x != "", file.read().splitlines()[1:])
         for line in lines:
             fields = map(str.strip, line.split(","))
             name, booker_id = fields
-            facilities.append(Facility(name, booker_id))
+            facility = Facility(name, int(booker_id))
+            facilities.append(facility)
     return facilities
 
-def verify_user(id, password):
+def verify_user(id: int, password: str) -> bool:
     for user in users:
         if user.id == id and user.password == password:
             return True
@@ -63,24 +72,25 @@ facilities = load_facilities()
 
 print("Welcome to <...>!\n")
 
-id = input("Enter your ID: ")
+id = int(input("Enter your ID: "))
 password = input("Enter your password: ")
 
 if not verify_user(id, password):
-    exit("Invalid ID or password")
+    print(f"\n{RED}Invalid ID or password{END_COLOR}")
+    exit(1)
 
 while True:
     print("\nBooking facilities:")
-    for facility in facilities:
+    for (index, facility) in enumerate(facilities):
         if facility.booker_id == 0:
-            print(f"{facility.name:<20} Available")
+            print(f"{index + 1}. {facility.name:<15} {GREEN}Available{END_COLOR}")
         elif facility.booker_id == id:
-            print(f"{facility.name:<20} Booked")
+            print(f"{index + 1}. {facility.name:<15} {BLUE}Booked{END_COLOR}")
         else:
-            print(f"{facility.name:<20} Unavailable")
+            print(f"{index + 1}. {facility.name:<15} {RED}Unavailable{END_COLOR}")
     print("\n5. Exit\n")
 
-    exit_code = 5
+    exit_code = len(facilities) + 1
 
     choice = int(input("Pick a facility (or exit): "))
     if choice == exit_code:
