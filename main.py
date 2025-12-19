@@ -1,10 +1,12 @@
 ########################################################
+# Constants
 RED = '\033[91m'
 BLUE = '\033[94m'
 GREEN = '\033[92m'
 END_COLOR = '\033[0m'
 
 ########################################################
+# Classes
 class Facility:
     def __init__(self, name: str, booker_id: int):
         self.name = name
@@ -26,6 +28,7 @@ class Booking:
         self.name = name
 
 ########################################################
+# Loaders
 def load_users() -> list[User]:
     users = []
     with open("database/users.txt", "r") as file:
