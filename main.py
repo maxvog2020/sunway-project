@@ -28,34 +28,36 @@ class Booking:
         self.name = name
 
 ########################################################
-# Loaders
+# Functions
+def read_database_file(file_path: str) -> list[str]:
+    with open(file_path, "r") as file:
+        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
+        return list(lines)
+
 def load_users() -> list[User]:
     users = []
-    with open("database/users.txt", "r") as file:
-        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
-        for line in lines:
-            fields = map(str.strip, line.split(","))
-            id, password, name, status = fields
-            user = User(int(id), password, name, status)
-            users.append(user)
+    lines = read_database_file("database/users.txt")
+    for line in lines:
+        fields = map(str.strip, line.split(","))
+        id, password, name, status = fields
+        user = User(int(id), password, name, status)
+        users.append(user)
     return users
 
 def load_bookings() -> list[Booking]:
     bookings = []
-    with open("database/bookings.txt", "r") as file:
-        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
-        for line in lines:
-            fields = map(str.strip, line.split(","))
-            booker_id, number_of_people, duration, date, name = fields
-            booking = Booking(int(booker_id), int(number_of_people), int(duration), date, name)
-            bookings.append(booking)
+    lines = read_database_file("database/bookings.txt")
+    for line in lines:
+        fields = map(str.strip, line.split(","))
+        booker_id, number_of_people, duration, date, name = fields
+        booking = Booking(int(booker_id), int(number_of_people), int(duration), date, name)
+        bookings.append(booking)
     return bookings
 
 def load_facilities() -> list[Facility]:
     facilities = []
-    with open("database/facilities.txt", "r") as file:
-        lines = filter(lambda x: x != "", file.read().splitlines()[1:])
-        for line in lines:
+    lines = read_database_file("database/facilities.txt")
+    for line in lines:
             fields = map(str.strip, line.split(","))
             name, booker_id = fields
             facility = Facility(name, int(booker_id))
