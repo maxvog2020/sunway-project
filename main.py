@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 ########################################################
 # Constants
 RED = '\033[91m'
@@ -70,6 +72,12 @@ def verify_user(id: int, password: str) -> bool:
             return True
     return False
 
+def print_invoice(booking: Booking):
+    print(f"Number of people: {booking.number_of_people}")
+    print(f"Duration: {booking.duration} days")
+    print(f"Date: {booking.date}")
+    print(f"Name: {booking.name}")
+
 ########################################################
 # Main
 users = load_users()
@@ -99,7 +107,77 @@ while True:
     exit_code = len(facilities) + 1
 
     choice = int(input("Pick a facility (or exit): "))
+
+    if choice < 1 or choice > exit_code:
+        print(f"\n{RED}Invalid choice{END_COLOR}")
+        continue
+
     if choice == exit_code:
         print("\nBye!")
         exit(0)
+
+    selected_facility = facilities[choice - 1]
+
+    # if unavailable
+    if selected_facility.booker_id != id and selected_facility.booker_id != 0:
+        print(f"{RED}This facility is not available{END_COLOR}")
+        continue  # go back to the main menu
+
+    # if available
+    if selected_facility.booker_id == 0:
+        want_to_book = input("Do you want to book this facility? (Y/N): ").upper()
+
+        if want_to_book not in ["Y", "N"]:
+            print(f"{RED}\nInvalid input{END_COLOR}")
+            continue
+
+        if want_to_book == "N":
+            continue  # go back to the main menu
+
+        # if yes
+        pax = int(input("Enter number of people: "))
+        duration = int(input("Enter duration in days: "))
+        date_booking_string = input("Enter the date (dd/mm/yyyy): ")
+        booking_name = input("Enter your name: ")
+
+        if pax < 1:
+            print(f"{RED}Number of people must be at least 1{END_COLOR}")
+            continue
+        
+        if duration < 1:
+            print(f"{RED}Duration must be at least 1 day{END_COLOR}")
+            continue
+        
+        today = date.today()
+        date_booking = datetime.strptime(date_booking_string, "%d/%m/%Y").date()
+
+        if date_booking < today:
+            print(f"{RED}\nInvalid date{END_COLOR}")
+            continue
+        
+        selected_facility.booker_id = id
+        booking = Booking(id, pax, duration, date_booking, booking_name)
+        bookings.append(booking)
+        print(f"{GREEN}\nYou have successfully booked this facilty!{END_COLOR}\n")
+
+        print_invoice(booking)
+        continue  # go back to the main menu
+    
+    # if booked by you
+    if selected_facility.booker_id == id:
+        booking = [booking for booking in bookings if booking.booker_id == id][0]
+        print()
+        print_invoice(booking)
+
+        want_to_cancel = input("\nThis facility is booked. Cancel booking? (Y/N): ").upper()
+
+        if want_to_cancel not in ["Y", "N"]:
+            print(f"{RED}\nInvalid input{END_COLOR}")
+            continue
+
+        if want_to_cancel == "Y":
+            selected_facility.booker_id = 0
+            bookings.remove(booking)
+            print(f"{GREEN}\nBooking cancelled!{END_COLOR}")
+        continue  # go back to the main menu
     
