@@ -120,7 +120,7 @@ while True:
 
     # if unavailable
     if selected_facility.booker_id != id and selected_facility.booker_id != 0:
-        print(f"{RED}This facility is not available{END_COLOR}")
+        print(f"{RED}\nThis facility is not available{END_COLOR}")
         continue  # go back to the main menu
 
     # if available
@@ -166,7 +166,7 @@ while True:
     # if booked by you
     if selected_facility.booker_id == id:
         booking = [booking for booking in bookings if booking.booker_id == id][0]
-        print()
+        print("")
         print_invoice(booking)
 
         want_to_cancel = input("\nThis facility is booked. Cancel booking? (Y/N): ").upper()
