@@ -69,6 +69,7 @@ def verify_user(id: int, password: str) -> bool:
     return False
 
 ########################################################
+# Main
 users = load_users()
 bookings = load_bookings()
 facilities = load_facilities()
