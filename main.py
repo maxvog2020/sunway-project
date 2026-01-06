@@ -95,13 +95,14 @@ if not verify_user(id, password):
 
 while True:
     print("\nBooking facilities:")
+    longest_facility_name = max(len(facility.name) for facility in facilities)
     for (index, facility) in enumerate(facilities):
         if facility.booker_id == 0:
-            print(f"{index + 1}. {facility.name:<15} {GREEN}Available{END_COLOR}")
+            print(f"{index + 1}. {facility.name:<{longest_facility_name}} : {GREEN}Available{END_COLOR}")
         elif facility.booker_id == id:
-            print(f"{index + 1}. {facility.name:<15} {BLUE}Booked{END_COLOR}")
+            print(f"{index + 1}. {facility.name:<{longest_facility_name}} : {BLUE}Booked{END_COLOR}")
         else:
-            print(f"{index + 1}. {facility.name:<15} {RED}Unavailable{END_COLOR}")
+            print(f"{index + 1}. {facility.name:<{longest_facility_name}} : {RED}Unavailable{END_COLOR}")
     print("\n5. Exit\n")
 
     exit_code = len(facilities) + 1
