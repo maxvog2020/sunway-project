@@ -1,7 +1,7 @@
 # NAME, BOOKER_ID
 
-Name1, 345
-Name2, 0
-Name3, 0
-Name4, 0
+Badminton Court, 345
+Basketball Court, 0
+Futsal Court, 0
+Gym Room, 0
 
