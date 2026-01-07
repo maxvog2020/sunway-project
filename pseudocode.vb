@@ -1,5 +1,6 @@
 START
-	DISPLAY 'Welcome to abc school sport facility system'
+	LOAD facilities users bookings from files
+	DISPLAY 'Welcome to <...>!'
 	DISPLAY 'Enter Student ID or Teacher ID'
 	INPUT ID
 	DISPLAY 'Enter your password'
